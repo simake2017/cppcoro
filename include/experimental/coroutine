@@ -1,0 +1,26 @@
+// ============================================================================
+// GCC 10+ 兼容 shim
+// ----------------------------------------------------------------------------
+// cppcoro 写于协程 TS 时代, 源码统一使用 std::experimental:: 命名空间。
+// GCC 10 的 libstdc++ 只提供标准 <coroutine> (std::), 没有 TS 兼容头,
+// 故在此把 TS 名字逐一别名到标准实现。
+// 用法: 编译时 -I <cppcoro>/include, #include <experimental/coroutine>
+//       即解析到本文件, 再转发到标准头。
+// ============================================================================
+#pragma once
+#include <coroutine>
+
+namespace std::experimental
+{
+	template<typename PROMISE = void>
+	using coroutine_handle = std::coroutine_handle<PROMISE>;
+
+	using suspend_always = std::suspend_always;
+	using suspend_never  = std::suspend_never;
+	using noop_coroutine_handle = std::noop_coroutine_handle;
+
+	inline auto noop_coroutine() noexcept
+	{
+		return std::noop_coroutine();
+	}
+}

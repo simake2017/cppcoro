@@ -1,0 +1,11 @@
+// ============================================================================
+// GCC 10+ 兼容 shim: std::experimental::filesystem -> std::filesystem
+// cppcoro 的文件 API 签名使用 TS 命名空间的 path, 此处整体别名转发。
+// ============================================================================
+#pragma once
+#include <filesystem>
+
+namespace std::experimental
+{
+	namespace filesystem = std::filesystem;
+}
